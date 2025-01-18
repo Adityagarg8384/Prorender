@@ -12,141 +12,21 @@ import makeAnimated from "react-select/animated";
 const animatedComponents = makeAnimated();
 export default function AiPoweredDiagnosis() {
   const symptoms = [
-    "shortness of breath",
-    "dizziness",
-    "asthenia",
-    "fall",
-    "syncope",
-    "vertigo",
-    "sweat",
-    "sweating increased",
-    "palpitation",
-    "nausea",
-    "angina pectoris",
-    "pressure chest",
-    "polydypsia",
-    "pain chest",
-    "orthopnea",
-    "rale",
-    "unresponsiveness",
-    "mental status changes",
-    "vomiting",
-    "labored breathing",
-    "feeling suicidal",
-    "suicidal",
-    "hallucinations auditory",
-    "feeling hopeless",
-    "weepiness",
-    "sleeplessness",
-    "motor retardation",
-    "irritable mood",
-    "blackout",
-    "mood depressed",
-    "hallucinations visual",
-    "worry",
-    "agitation",
-    "tremor",
-    "intoxication",
-    "verbal auditory hallucinations",
-    "energy increased",
-    "difficulty",
-    "nightmare",
-    "homelessness",
-    "hypokinesia",
-    "dyspnea on exertion",
-    "chest tightness",
-    "cough",
-    "fever",
-    "decreased translucency",
-    "productive cough",
-    "pleuritic pain",
-    "yellow sputum",
-    "breath sounds decreased",
-    "chill",
-    "rhonchus",
-    "non-productive cough",
-    "wheezing",
-    "haemoptysis",
-    "distress respiratory",
-    "tachypnea",
-    "night sweat",
-    "jugular venous distention",
-    "dyspnea",
-    "dysarthria",
-    "speech slurred",
-    "facial paresis",
-    "hemiplegia",
-    "seizure",
-    "numbness",
-    "chest discomfort",
-    "bradycardia",
-    "pain",
-    "erythema",
-    "pruritus",
-    "diarrhea",
-    "abscess bacterial",
-    "swelling",
-    "apyrexial",
-    "dysuria",
-    "hematuria",
-    "lethargy",
-    "hyponatremia",
-    "hemodynamically stable",
-    "consciousness clear",
-    "guaiac positive",
-    "ecchymosis",
-    "tumor cell invasion",
-    "haemorrhage",
-    "fatigue",
-    "orthostasis",
-    "transaminitis",
-    "patient non compliance",
-    "unconscious state",
-    "abdominal tenderness",
-    "unsteady gait",
-    "hyperkalemia",
-    "ascites",
-    "hypotension",
-    "muscle twitch",
-    "sleepy",
-    "headache",
-    "lightheadedness",
-    "food intolerance",
-    "general discomfort",
-    "drowsiness",
-    "prostatism",
-    "mass of body structure",
-    "lesion",
-    "cushingoid facies",
-    "cushingoid habitus",
-    "decreased body weight",
-    "thicken",
-    "spontaneous rupture of membranes",
-    "redness",
-    "sore to touch",
-    "burning sensation",
-    "constipation",
-    "pain abdominal",
-    "breech presentation",
-    "cyanosis",
-    "clonus",
-    "anorexia",
-    "metastatic lesion",
-    "gurgle",
-    "oliguria",
-    "catatonia",
-    "paresthesia",
-    "lung nodule",
-    "distended abdomen",
-    "sinus rhythm",
-    "splenomegaly",
-    "painful swallowing",
-    "throat sore",
-    "snuffle",
-    "urge incontinence",
-    "scar tissue",
-    "extreme exhaustion",
+    'abdominal_pain', 'acidity', 'anxiety', 'blackheads', 'bloody_stool',
+               'blurred_and_distorted_vision', 'breathlessness', 'chest_pain',
+               'chills', 'constipation', 'continuous_feel_of_urine',
+               'continuous_sneezing', 'cough', 'dischromic _patches', 'dizziness',
+               'fatigue', 'foul_smell_of urine', 'headache', 'high_fever',
+               'hip_joint_pain', 'indigestion', 'irregular_sugar_level',
+               'irritation_in_anus', 'joint_pain', 'knee_pain',
+               'lack_of_concentration', 'lethargy', 'loss_of_appetite', 'mood_swings',
+               'movement_stiffness', 'nausea', 'neck_pain', 'nodal_skin_eruptions',
+               'pain_in_anal_region', 'passage_of_gases', 'pus_filled_pimples',
+               'restlessness', 'shivering', 'skin_peeling', 'skin_rash',
+               'small_dents_in_nails', 'sweating', 'swelling_joints', 'vomiting',
+               'watering_from_eyes', 'No Symptom', 'itching'
   ];
+  // console.log("symptoms")
   const jsonArray = symptoms.map((symptom) => ({
     value: symptom,
     label: symptom,
@@ -167,32 +47,47 @@ export default function AiPoweredDiagnosis() {
   // };
   const [select, setselect] = useState([]);
   const [result, setresult] = useState(null);
+  const [result2, setresult2]= useState(null);
   const [isPending, startTransition] = useTransition();
+  const [age, setAge]= useState('')
+  const [days, setDays]= useState('')
 
   function handleOnChange(e) {
     const selectedValues = e.map((option) => option.value);
     setselect(selectedValues);
   }
+
+  function handleAgeChange(e){
+    // console.log(e.target.value);
+    setAge(e.target.value)
+  }
+
+  function handleDateChange(e){
+    // console.log(e.target.value);
+    setDays(e.target.value)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
-        const a = JSON.stringify({ symptoms: select });
+        const a = JSON.stringify({ symptoms: select, age:age, days:days });
         // console.log(a);
         const res = await axios.post("/api/model/diagnosis", a, {
           headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         });
         // console.log(res.data);
-        setresult(res?.data?.Message?.predicted_disease);
+        setresult(res?.data?.Message?.predictions[0]);
+        setresult2(res?.data?.Message?.predictions[1]);
         setselect([]);
       } catch (error) {
-        console.log(error);
-        // setError(
-        //   error?.response?.data?.Message
-        //     ? error?.response?.data?.Message
-        //     : "Error Encountered"
-        // );
+        // console.log(error);
+        setError(
+          error?.response?.data?.Message
+            ? error?.response?.data?.Message
+            : "Error Encountered"
+        );
       }
     });
   };
@@ -208,7 +103,7 @@ export default function AiPoweredDiagnosis() {
         <p className=" text-lg">Please select relevant symptoms you posses</p>
         <form
           onSubmit={handleSubmit}
-          className="w-full flex flex-col items-center gap-10 "
+          className="w-full flex flex-col items-center gap-5 "
         >
           <Select
             className="w-[60%]"
@@ -220,13 +115,34 @@ export default function AiPoweredDiagnosis() {
             options={jsonArray}
             onChange={handleOnChange}
           />
+          <input
+            type="number"
+            id="age"
+            value={age}
+            onChange={handleAgeChange}
+            min="0"
+            max="100"
+            placeholder="Age"
+            className="w-[60%] mt-1 p-1.5"
+          />
+
+          <input
+            type="number"
+            id="date"
+            value={days}
+            onChange={handleDateChange}
+            min="0"
+            max="25"
+            placeholder="Number of Days of Symptoms"
+            className="w-[60%] mt-1 p-1.5"
+          />
           {/* <h1>{select?.length}</h1>
           <h1 className="text-black">{isPending + ""}</h1> */}
           <button
-            disabled={select.length == 0 || isPending}
+            disabled={select.length == 0 || age.length==0 || days.length==0 || isPending}
             type="submit"
             className={`${
-              select.length == 0
+              select.length == 0 || age.length==0|| days.length==0
                 ? "cursor-not-allowed disabled:bg-violet-100 disabled:text-violet-300"
                 : ""
             }  bg-violet-700 text-violet-200  border-violet-500 border w-36 text-center flex items-center justify-center  font-bold py-2 px-4 rounded`}
@@ -254,8 +170,18 @@ export default function AiPoweredDiagnosis() {
         <div className="w-full rounded-xl  flex flex-col items-center bg-emerald-200 p-10 gap-10 text-emerald-800 ">
           <h1 className="font-semibold text-5xl">Predicted Results </h1>
           <p className="font-semibold capitalize text-2xl ml-3 ">
-            You are diagnosed with :-{" "}
-            <span className="italic">&quot;{result}&quot;</span>
+            {" "} 
+            <span className="italic">&quot;{result.disease}&quot; </span>
+            with probability {""}
+            <span className="italic">&quot;{Math.round(result.probability * 100 * 10) / 10}&quot; </span>
+            %
+          </p>
+          <p className="font-semibold capitalize text-2xl ml-3 ">
+            {" "} 
+            <span className="italic">&quot;{result2.disease}&quot; </span>
+            With probability {""}
+            <span className="italic">&quot;{Math.round(result2.probability * 100 * 10) / 10}&quot; </span>
+            %
           </p>
         </div>
       )}

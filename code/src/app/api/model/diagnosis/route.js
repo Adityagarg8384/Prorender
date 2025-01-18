@@ -27,17 +27,30 @@ export async function POST(req, res) {
     }
 
     const symptoms = data?.symptoms;
-    // console.log(symptoms);
+    const age= parseInt(data?.age);
+    const days= parseInt(data?.days)
 
-    const payload = { symptoms };
+    // age = parseInt(age, 10); 
+    // days = parseInt(days, 10);
 
-    // console.log(payload);
+    console.log(age)
+    console.log(days)
+    console.log(symptoms);
+
+    const payload = { "age": age, "days_of_symptoms": days, "symptoms": symptoms };
+  //   const payload={
+  //     "age":54,
+  //     "days_of_symptoms":5,
+  //     "symptoms": ["high_fever","chills", "cough"]
+  // }
+  //   console.log(payload);
+    console.log(payload)
     const res = await axiosInstance.post(
-      "https://diseaseprediction-im3y.onrender.com/predict",
+      "https://prorender-4yue.onrender.com/predict",  
       payload
     );
     const ans = res?.data;
-    // console.log(ans);
+    console.log(ans);
     return successResponse(
       ans,
       "Data fetched succesfully",
@@ -45,6 +58,7 @@ export async function POST(req, res) {
     );
   } catch (error) {
     // console.log(error);
+    // console.log(error)
     return errorResponse(error.message, error.type, error.statusCode);
   }
 }
