@@ -1,17 +1,24 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-import joblib
 import numpy as np
+import onnxruntime as ort 
+import joblib
 import os
-
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Load pre-trained models and encoders
-model = joblib.load('Disease10 (2).pkl')
-encoder = joblib.load('mlb_encoder (3).pkl')
-Yencoder2 = joblib.load('Yencoder8 (3).pkl')
+onnx_model_path = 'model.onnx'
+encoder_path = 'mlb_encoder (3).pkl'
+y_encoder_path = 'Yencoder8 (3).pkl'
+
+# Load ONNX model
+onnx_session = ort.InferenceSession(onnx_model_path)
+
+# Load encoders
+encoder = joblib.load(encoder_path)
+Yencoder2 = joblib.load(y_encoder_path)
 
 # Define symptom list
 defsymptoms = ['abdominal_pain', 'acidity', 'anxiety', 'blackheads', 'bloody_stool',
@@ -28,10 +35,13 @@ defsymptoms = ['abdominal_pain', 'acidity', 'anxiety', 'blackheads', 'bloody_sto
                'small_dents_in_nails', 'sweating', 'swelling_joints', 'vomiting',
                'watering_from_eyes', 'No Symptom', 'itching']
 
+# Preprocessing function
 def preprocess_input(age, days_of_symptoms, symptoms):
-    age_bin = pd.cut([age], bins=10, labels=False)[0]
-    days_bin = pd.cut([days_of_symptoms], bins=10, labels=False)[0]
+    # Bin age and days_of_symptoms
+    age_bin = pd.cut([age], bins=range(0, 101, 10), labels=False)[0]  # Age bins: 0-10, 10-20, etc.
+    days_bin = pd.cut([days_of_symptoms], bins=range(0, 101, 10), labels=False)[0]
 
+    # One-hot encode symptoms
     input_list = [0] * len(defsymptoms)
     for symptom in symptoms:
         if symptom in defsymptoms:
@@ -39,16 +49,30 @@ def preprocess_input(age, days_of_symptoms, symptoms):
         else:
             print(f"Warning: Symptom '{symptom}' not found in predefined list.")
     
-    input_list = np.array([input_list])
+    input_list = np.array([input_list], dtype=np.float32)
     return age_bin, days_bin, input_list
 
+# Prediction function
 def predict(symptoms, age, days_of_symptoms):
+    # Preprocess inputs
     age_bin, days_bin, symptoms_encoded = preprocess_input(age, days_of_symptoms, symptoms)
-    prediction = model.predict([np.array([age_bin]), np.array([days_bin]), symptoms_encoded])
+
+    # Prepare inputs for the ONNX model
+    print(Yencoder2.classes_)
+
+
+    inputs = {
+    "input_1": np.array([[age_bin]], dtype=np.float32),  # Reshape to 2D
+    "input_2": np.array([[days_bin]], dtype=np.float32),
+    "input_3": symptoms_encoded
+}
+
+    # Run ONNX model inference
+    prediction = onnx_session.run(None, inputs)[0]
 
     # Get top 2 predicted diseases and their probabilities
     top_2_indices = np.argsort(prediction[0])[-2:][::-1]
-    top_2_diseases = Yencoder2.inverse_transform(top_2_indices)
+    top_2_diseases = Yencoder2.inverse_transform(np.array(top_2_indices).reshape(-1, 1))
     top_2_probabilities = prediction[0][top_2_indices]
 
     result = [{"disease": top_2_diseases[i], "probability": float(top_2_probabilities[i])} for i in range(2)]
@@ -64,9 +88,13 @@ def predict_disease():
         days_of_symptoms = data.get('days_of_symptoms')
         symptoms = data.get('symptoms')
 
+        print(age)
+        print(days_of_symptoms)
+        print(symptoms)
+
         # Validate inputs
-        if not all([age, days_of_symptoms, symptoms]):
-            return jsonify({"error": "Invalid input. Please provide age, days_of_symptoms, and symptoms."}), 400
+        if not isinstance(age, (int, float)) or not isinstance(days_of_symptoms, (int, float)) or not isinstance(symptoms, list):
+            return jsonify({"error": "Invalid input. Please provide valid age (number), days_of_symptoms (number), and symptoms (list)."}), 400
 
         # Predict
         result = predict(symptoms, age, days_of_symptoms)
@@ -74,6 +102,14 @@ def predict_disease():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/status', methods=['GET'])
+def status():
+    return jsonify({'status': 'OK'}), 200
+
+@app.route("/")
+def home():
+    return "Service is up and running!", 200
 
 # Run the app
 if __name__ == '__main__':
