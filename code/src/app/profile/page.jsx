@@ -5,7 +5,7 @@ import React from "react";
 const page = () => {
   return (
     <>
-      <div className="min-h-screen w-full flex flex-col items-center px-[400px]">
+      <div className="min-h-screen w-full flex flex-col items-center md:px-[200px] px-10">
         <EditProfile />
       </div>
       {/* <ProCare /> */}

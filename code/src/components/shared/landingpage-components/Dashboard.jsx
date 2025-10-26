@@ -1,5 +1,6 @@
 import Image from "next/image";
 import dashboardimg from "../../../../public/dashboard.png";
+import Link from "next/link";
 
 function Dashboard() {
   return (
@@ -9,13 +10,15 @@ function Dashboard() {
           <span className="text-sky-400">Interactive</span> DashBoard
         </h2>
         <div className="w-full h-[50rem] relative">
-          <Image
-            priority
-            fill
-            src={dashboardimg}
-            alt="Interactive Dashboard"
-            className="object-contain shadow-lg   aspect-[1.34] "
-          />
+          <Link href="/dashboard">
+            <Image
+              priority
+              fill
+              src={dashboardimg}
+              alt="Interactive Dashboard"
+              className="object-contain shadow-lg   aspect-[1.34] "
+            />
+          </Link>
         </div>
       </div>
     </section>

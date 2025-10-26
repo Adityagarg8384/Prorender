@@ -7,7 +7,7 @@ import Testimonials from "./Testimonials";
 
 function MainComponent() {
   return (
-    <main className="flex z-10 flex-col self-center w-full max-w-[1409px] max-md:max-w-full">
+    <main className="flex z-10 flex-col w-full min-w-0 mx-auto md:max-w-[1409px] px-4 md:px-0">
       {/* <Header /> */}
       <Hero />
       <Dashboard />

@@ -66,15 +66,15 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex z-10 h-full flex-col items-start  px-16 py-10 -mr-40 bg-white rounded-[40px] max-md:px-5 max-md:pb-24 max-md:mt-10 max-md:max-w-full"
+      className="flex z-10 h-full flex-col items-center  md:px-10 md:py-10 bg-white rounded-[40px] max-md:px-5 max-md:pb-6 md:mt-10 max-md:max-w-full"
     >
-      <h2 className="text-4xl font-light text-black max-md:max-w-full max-md:text-4xl">
-        <span className="font-medium text-rose-400">Login</span> to your Account
+      <h2 className="font-light text-black max-md:max-w-full max-md:text-4xl text-center">
+        <span className=" md:text-4xl text-lg text-rose-400">Login into your Account</span>
       </h2>
       <input
         type="text"
         placeholder="Email or Username"
-        className="px-6 py-3 mt-10 max-w-full text-2xl text-emerald-500 bg-white rounded-2xl border-2 border-teal-600 border-solid w-[500px] max-md:px-5 max-md:mt-10 "
+        className="md:px-6 md:py-3 mt-4 md:mt-10 max-w-full md:text-2xl text-emerald-500 bg-white rounded-2xl border-2 border-teal-600 border-solid w-3/4 max-md:px-5"
         aria-label="Email or Username"
         value={username}
         onChange={handleUsernameChange}
@@ -82,7 +82,7 @@ const LoginForm = () => {
       <input
         type="password"
         placeholder="Password"
-        className="px-6 py-3 mt-5 max-w-full text-2xl text-emerald-500 bg-white rounded-2xl border-2 border-teal-600 border-solid w-[500px] max-md:px-5 max-md:mt-10"
+        className="md:px-6 md:py-3 mt-2 md:mt-5 max-w-full md:text-2xl text-emerald-500 bg-white rounded-2xl border-2 border-teal-600 border-solid w-3/4 max-md:px-5 "
         aria-label="Password"
         value={password}
         onChange={handlePasswordChange}
@@ -92,8 +92,8 @@ const LoginForm = () => {
           {formError}
         </p>
       )}
-      <p className="mt-20 ml-3 text-2xl text-emerald-400 max-md:mt-10 max-md:max-w-full">
-        <span className="text-black">Do not have an Account? Please </span>
+      <p className="md:mt-20 mt-4 ml-3 text-sm md:text-2xl text-emerald-400 max-md:max-w-full">
+        <span className="text-black ">Do not have an Account? Please </span>
         <Link
           replace={true}
           href="/signup"
@@ -104,7 +104,7 @@ const LoginForm = () => {
       </p>
       <button
         type="submit"
-        className={`px-12 py-2 mt-10 max-w-full flex items-center justify-center text-2xl text-white whitespace-nowrap  rounded-xl w-[305px] max-md:px-5 max-md:mt-10 ${
+        className={`md:px-12 md:py-2 py-1 mt-4 md:mt-10 max-w-full flex items-center justify-center md:text-2xl text-lg text-white whitespace-nowrap  rounded-xl w-[305px] max-md:px-5 ${
           validForm && !isPending
             ? "bg-emerald-600"
             : "bg-emerald-200 cursor-not-allowed"

@@ -16,6 +16,7 @@ export const metadata = {
   description: "Ai assistance for health diagnosis ,medication",
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>

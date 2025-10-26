@@ -24,13 +24,13 @@ function Hero() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
-            className="flex gap-3 items-end  mt-5 w-52 max-w-full text-5xl font-semibold whitespace-nowrap max-md:text-4xl"
+            className="flex flex-row items-center justify-center md:gap-3 md:items-end mt-5 w-full max-w-xs text-5xl font-semibold whitespace-nowrap max-md:text-4xl"
           >
-            <div className="max-md:text-4xl">1000+</div>
-            <h1 className="font-medium text-3xl mr-4">users</h1>
+            <div className="sm:text-4xl text-xs">1000+</div>
+            <h1 className="font-medium text-3xl mr-4 sm:text-4xl text-xs">users</h1>
             <div className="shrink-0 w-0.5 border-2 border-solid border-neutral-700 border-opacity-50 h-[61px]" />
-            <div className="max-md:text-4xl ml-4">3000+</div>
-            <h1 className="font-medium text-3xl"> Analysis</h1>
+            <div className="sm:text-4xl text-xs ml-4 ">3000+</div>
+            <h1 className="font-medium text-3xl sm:text-4xl text-xs"> Analysis</h1>
           </motion.div>
         </div>
       </div>
