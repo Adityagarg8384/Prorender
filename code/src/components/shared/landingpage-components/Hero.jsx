@@ -14,7 +14,7 @@ function Hero() {
             Bringing <span className="text-emerald-500">Smiles</span> <br />{" "}
             Back to Health.
           </h1>
-          <p className="mt-7 mr-10 text-xl text-wrap  text-justify text-black max-md:mr-2.5 max-md:max-w-full">
+          <p className="mt-7 mr-10 text-base md:text-xl text-wrap  text-justify text-black max-md:mr-2.5 max-md:max-w-full">
             Your AI health partner for accurate disease predictions,
             personalized medication advice, and 24/7 support. Stay ahead of
             health issues with ProCare. Join us today for a healthier tomorrow!
@@ -26,11 +26,11 @@ function Hero() {
             transition={{ duration: 0.7 }}
             className="flex flex-row items-center justify-center md:gap-3 md:items-end mt-5 w-full max-w-xs text-5xl md:ml-24 font-semibold whitespace-nowrap max-md:text-4xl"
           >
-            <div className="sm:text-4xl text-sm">1000+</div>
-            <h1 className="font-medium mr-4 sm:text-4xl text-sm">users</h1>
+            <div className="md:text-4xl text-sm">1000+</div>
+            <h1 className="font-medium mr-4 md:text-4xl text-sm">users</h1>
             <div className="shrink-0 w-0.5 border-2 border-solid border-neutral-700 border-opacity-50 h-[61px]" />
-            <div className="sm:text-4xl text-sm ml-4 ">3000+</div>
-            <h1 className="font-medium text-3xl sm:text-4xl text-sm"> Analysis</h1>
+            <div className="md:text-4xl text-sm ml-4 ">3000+</div>
+            <h1 className="font-medium md:text-4xl text-sm"> Analysis</h1>
           </motion.div>
         </div>
       </div>

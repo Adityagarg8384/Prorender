@@ -25,7 +25,7 @@ const NavbarActiveLink = (session) => {
     
     <nav className="relative flex items-center justify-between px-4 py-3 w-full">
       {/* Desktop Links */}
-      <div className="hidden sm:flex items-center gap-7 font-semibold uppercase text-sm">
+      <div className="hidden sm:flex items-center gap-7 font-semibold uppercase lg:text-sm text-xs">
         {navItems.map((item, index) => (
           <Link
             href={item.path}

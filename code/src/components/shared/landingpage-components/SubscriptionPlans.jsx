@@ -34,27 +34,28 @@ const plans = [
 
 function PlanCard({ title, color, imageSrc, price, description }) {
   return (
-    <article className={`flex flex-col w-[33%] max-md:ml-0 max-md:w-full`}>
+    <article className="flex flex-col w-[33%] max-md:w-full">
       <div
         className={`flex flex-col grow text-6xl ${color} whitespace-nowrap max-md:mt-9 max-md:max-w-full max-md:text-4xl`}
       >
-        <h2 className="self-center max-md:text-3xl">{title}</h2>
-        <div className="w-full mt-4 h-[390px] relative">
-          <Image
-            priority
-            fill
-            src={imageSrc}
-            alt={`${title} plan illustration`}
-            className="object-contain   aspect-[0.97]    "
-          />
-          <div className="absolute text-white w-full h-full flex flex-col items-center gap-10 py-10">
-            <section className="flex items-end gap-3 text-lg justify-between">
-              <p className="capitalize text-7xl tracking-wide font-semibold ">
+        <h2 className="self-center lg:text-7xl md:text-3xl">{title}</h2>
+
+        {/* Background container */}
+        <div
+          className={`w-auto mt-4 h-auto relative rounded-2xl shadow-lg overflow-hidden
+          flex flex-col items-center justify-center text-white 
+          bg-gradient-to-b from-gray-800 via-${color?.split('-')[1] ?? 'blue'}-600 to-black`}
+        >
+          {/* Text Overlay */}
+          <div className="w-full h-full flex flex-col items-center justify-center md:gap-10 gap-5 py-10 md:px-6 text-center">
+            <section className="flex flex-col lg:flex-row items-center justify-between w-full md:w-[80%] gap-3">
+              <p className="capitalize md:text-3xl lg:text-6xl text-4xl tracking-wide font-semibold">
                 {price}
               </p>
-              <p className="font-semibold mb-1"> 12 Months</p>
+              <p className="font-semibold text-lg mb-1">12 Months</p>
             </section>
-            <section className="w-[80%]  items-start text-wrap text-xl ">
+
+            <section className="md:w-[60%] w-[80%] text-wrap md:text-base lg:text-xl text-base leading-relaxed">
               {description}
             </section>
           </div>

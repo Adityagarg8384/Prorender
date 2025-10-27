@@ -29,16 +29,16 @@ const testimonials = [
 function TestimonialCard({ name, image, t }) {
   return (
     <div className="flex flex-col items-start p-6 w-full bg-white rounded-3xl shadow-lg max-md:px-5">
-      <div className="flex flex-col sm:items-center sm:gap-4 whitespace-nowrap">
+      <div className="flex flex-col sm:items-center sm:gap-4">
         <img
           loading="lazy"
           src={image}
           alt={`${name}'s profile`}
           className="object-contain shrink-0 rounded-full aspect-square w-[82px]"
         />
-        <div className=" font-semibold sm:text-3xl text-xs">{name}</div>
+        <div className=" font-semibold sm:text-3xl text-xs flex-wrap">{name}</div>
       </div>
-      <div className="shrink-0 mt-4 h-0.5 md:h-1 border-2 md:border-4 border-black w-24 md:w-44" />
+      <div className="shrink-0 mt-4 h-0.5 md:h-1 border-2 md:border-4 border-black w-full" />
       <p className="self-stretch mt-4 leading-8">{t}</p>
     </div>
   );
