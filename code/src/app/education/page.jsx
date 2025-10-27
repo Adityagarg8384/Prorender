@@ -22,9 +22,12 @@ const Dashboard = () => {
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-5 text-justify text-lg md:text-2xl">
             <p className="w-full">
-              According to the World Health Organization (WHO), health education is a tool to improve a population's general health and wellness through promoting knowledge and healthy practices.
+              According to the World Health Organization (WHO), health education is a tool
+              to improve a population&apos;s general health and wellness through promoting
+              knowledge and healthy practices.
               <br />
-              Although the subject is often taught in school settings, students aren't the only ones who need to know about health. In fact, all age groups and demographics can benefit from health education.
+              Although the subject is often taught in school settings, students aren&apos;t
+              the only ones who need to know about health.
             </p>
 
             <p className="w-full">
