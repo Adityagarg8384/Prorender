@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 function Hero() {
   return (
-    <section className="flex gap-5 mt-20 max-md:flex-col max-md:mt-10 max-md:max-w-full">
+    <section className="flex gap-5 md:mt-20 max-md:flex-col max-md:max-w-full">
       <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
         <div className="flex flex-col items-start w-full text-emerald-500 max-md:mt-10 max-md:max-w-full">
           <div className="px-5 py-2 text-2xl rounded-xl bg-emerald-500 bg-opacity-10 max-md:px-5">
@@ -24,13 +24,13 @@ function Hero() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
-            className="flex flex-row items-center justify-center md:gap-3 md:items-end mt-5 w-full max-w-xs text-5xl font-semibold whitespace-nowrap max-md:text-4xl"
+            className="flex flex-row items-center justify-center md:gap-3 md:items-end mt-5 w-full max-w-xs text-5xl md:ml-24 font-semibold whitespace-nowrap max-md:text-4xl"
           >
-            <div className="sm:text-4xl text-xs">1000+</div>
-            <h1 className="font-medium text-3xl mr-4 sm:text-4xl text-xs">users</h1>
+            <div className="sm:text-4xl text-sm">1000+</div>
+            <h1 className="font-medium mr-4 sm:text-4xl text-sm">users</h1>
             <div className="shrink-0 w-0.5 border-2 border-solid border-neutral-700 border-opacity-50 h-[61px]" />
-            <div className="sm:text-4xl text-xs ml-4 ">3000+</div>
-            <h1 className="font-medium text-3xl sm:text-4xl text-xs"> Analysis</h1>
+            <div className="sm:text-4xl text-sm ml-4 ">3000+</div>
+            <h1 className="font-medium text-3xl sm:text-4xl text-sm"> Analysis</h1>
           </motion.div>
         </div>
       </div>

@@ -22,14 +22,18 @@ const Navbar = async () => {
       <div className="order-second sm:order-none ">
         <h1 className="col-span-3 col-start-1 flex text-center ">
           <Link replace={true} href="/" className=" ">
-            <div className="grow shrink flex font-semibold items-center  text-5xl w-[171px] max-md:text-4xl">
+            <div className="grow shrink flex font-semibold items-center text-2xl md:text-5xl w-[171px]">
               <Image
-                src={"/logo.jpeg"}
-                className="rounded-full object-cover object-center "
-                quality={100}
+                src="/logo.jpeg"
                 alt="logo"
-                height={60}
                 width={60}
+                height={60}                // intrinsic size for the image component
+                quality={100}
+                className="rounded-full object-cover object-center
+             w-30 h-30        /* xs/mobile */
+             sm:w-30 sm:h-30  /* small screens */
+             md:w-30 md:h-30/* medium and up */
+            "
               />
               <h1 className="ml-4">Pro</h1>
               <span className="text-emerald-500">Care</span>

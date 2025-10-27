@@ -40,14 +40,18 @@ export function EducationCaraousel() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Card className="h-[500px]  rounded-xl relative max-sm:h-[25rem]  ">
-                  <Image
-                    src={review?.profile}
-                    alt="profile"
-                    fill
-                    className=" object-cover rounded-xl  absolute overflow-hidden select-none "
-                  />
+                <Card className="relative overflow-hidden rounded-xl h-[500px] sm:h-[500px] max-sm:h-[25rem]">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={review?.profile}
+                      alt="profile"
+                      fill
+                      sizes="(max-width:640px) 100vw, 33vw"
+                      className="object-contain sm:object-cover object-center"
+                    />
+                  </div>
                 </Card>
+
               </Link>
             </div>
           </CarouselItem>

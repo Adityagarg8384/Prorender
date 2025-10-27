@@ -192,7 +192,7 @@ export default function MedicationRecommendation() {
     });
   };
   return (
-    <div className="min-h-screen w-full flex flex-col gap-5 px-32 items-center py-10 container ">
+    <div className="min-h-screen w-full flex flex-col gap-5 md:px-32 items-center py-10 container ">
       <HeroSection />
       {/* <WelcomeSection /> */}
       <div className="w-full py-10  items-center flex flex-col rounded-xl  bg-violet-100 text-violet-700">
